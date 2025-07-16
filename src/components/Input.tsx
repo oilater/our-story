@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { type InputHTMLAttributes, forwardRef } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: string;
   validation?: {
     required?: string;
@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, validation, ...props }, ref) => {
     return (
       <div css={inputGroup}>
-        <label css={labelStyle}>{label}</label>
+        {label && <label css={labelStyle}>{label}</label>}
         <input
           ref={ref}
           css={[input, error && errorInput]}
