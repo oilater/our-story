@@ -1,5 +1,10 @@
 # 단계별 회원가입 폼 구현 
 
+## 프리뷰
+
+https://github.com/user-attachments/assets/6a2e4425-dabc-471f-bcbd-17ac89b31f1c
+
+
 ## 프로젝트 실행 방법
 
 ### 설치
