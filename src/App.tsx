@@ -11,14 +11,13 @@ import { type Step } from './types.ts'
 export const FORM_IDS: Record<Step, string> = {
   First: 'first-step-form',
   Second: 'second-step-form',
-  Third: 'third-step-form'
+  Third: '',
 } as const;
 
 export default function App() {
   const [step] = useAtom(stepAtom);
   const goToPrevStep = useSetAtom(goToPrevStepAtom);
   const goToNextStep = useSetAtom(goToNextStepAtom);
-  
   const FORM_ID = FORM_IDS[step];
   
   return (
@@ -26,7 +25,7 @@ export default function App() {
       {step !== 'First' && <Header onBack={goToPrevStep} />}
 
       {step === 'First' && <FirstStep onSubmit={goToNextStep} />}
-      {step === 'Second' && <SecondStep />}
+      {step === 'Second' && <SecondStep onSubmit={goToNextStep} />}
       {step === 'Third' && <ThirdStep />}
       
       <BottomCTA formId={FORM_ID}>
@@ -38,6 +37,6 @@ export default function App() {
 
 const container = css`
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 550px;
   padding: 20px;
 `

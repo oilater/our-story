@@ -25,7 +25,7 @@ const bottomCTA = css`
   left: 20px;
   right: 20px;
   bottom: 60px;
-  max-width: 620px;
+  max-width: 550px;
   width: calc(100% - 40px);
   height: 56px;
   transform: translateZ(0);

@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { type InputHTMLAttributes, forwardRef } from 'react';
 
+const MAX_DATE = new Date().toISOString().split('T')[0];
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
@@ -18,6 +20,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div css={inputGroup}>
         {label && <label css={labelStyle}>{label}</label>}
         <input
+          max={props.type === 'date' ? MAX_DATE : undefined}
           ref={ref}
           css={[input, error && errorInput]}
           autoComplete="on"

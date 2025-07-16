@@ -7,9 +7,7 @@ type HeaderProps = {
 
 export function Header({ onBack }: HeaderProps) {
   return (
-    <header
-      css={header}
-    >
+    <header css={header}>
       <button type="button" css={backButton} onClick={onBack}>
         <BackIcon />
       </button>

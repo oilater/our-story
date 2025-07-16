@@ -1,20 +1,13 @@
 import { atom } from "jotai";
+import type { UserInfo } from "../types";
 
-// Step 1 데이터
-export const firstStepFormDataAtom = atom({
+export const userInfoAtom = atom<UserInfo>({
   id: '',
   password: '',
   email: '',
   phone: '',
-});
-
-// Step 2 데이터
-export const secondStepFormDataAtom = atom({
-  birth: new Date(),
+  name: '',
+  birth: '',
   gender: 'other',
-});
-
-// Step 3 데이터
-export const thirdStepFormDataAtom = atom({
-  // Step 3에 필요한 데이터 추가
+  social: 'none',
 });

@@ -1,10 +1,12 @@
-// src/pages/FirstStep.tsx
 import { css } from '@emotion/react';
 import { useForm } from 'react-hook-form';
 import { useAtom } from 'jotai';
-import { firstStepFormDataAtom } from '../atoms/user-info-atom';
 import { Input } from '../components/Input';
 import { ValidationRules } from '../utils/validate-rules';
+import { userInfoAtom } from '../atoms/user-info-atom';
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 interface FirstStepFormData {
   id: string;
@@ -18,32 +20,57 @@ interface FirstStepProps {
 }
 
 export function FirstStep({ onSubmit }: FirstStepProps) {
-  const [firstStepFormData, setFirstStepFormData] = useAtom(firstStepFormDataAtom);
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(['.title-section', '.form'], {
+      opacity: 0,
+      duration: 0.8,
+      y: -5,
+      ease: 'power2.inOut',
+      stagger: 0.2,
+    });
+  }, {scope: containerRef})
   
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<FirstStepFormData>({
-    defaultValues: firstStepFormData,
+    defaultValues: {
+      id: userInfo.id,
+      password: userInfo.password,
+      email: userInfo.email,
+      phone: userInfo.phone
+    },
     mode: 'onChange'
   });
 
   const handleFormSubmit = (data: FirstStepFormData) => {
-    setFirstStepFormData(data);
-    onSubmit();
+    setUserInfo(prev => ({ ...prev, ...data }));
+
+    const exitTween = gsap.to(containerRef.current, {
+      opacity: 0,
+      y: -10,
+      duration: 0.3,
+      ease: 'power2.in',
+    });
+    exitTween.eventCallback('onComplete', onSubmit);
   };
 
   return (
-    <div css={container}>
-      <p css={subTitle}>Step 1</p>
-      <h1 css={title}>회원 정보 입력</h1>
+    <div ref={containerRef} css={container}>
+      <div className="title-section">
+        <p css={subTitle}>Step 1</p>
+        <h1 css={title}>회원 정보를 입력해주세요</h1>
+      </div>
       
-      <form id="first-step-form" css={form} onSubmit={handleSubmit(handleFormSubmit)}>
+      <form id="first-step-form" className="form" css={form} onSubmit={handleSubmit(handleFormSubmit)}>
         <Input
           type="text"
           label="아이디"
-          placeholder="아이디를 입력하세요"
+          placeholder="아이디를 입력해주세요"
           error={errors.id?.message}
           autoFocus
           {...register('id', ValidationRules.Id)}
@@ -52,7 +79,7 @@ export function FirstStep({ onSubmit }: FirstStepProps) {
         <Input
           type="password"
           label="비밀번호"
-          placeholder="비밀번호를 입력하세요"
+          placeholder="비밀번호를 입력해주세요"
           error={errors.password?.message}
           {...register('password', ValidationRules.Password)}
         />
