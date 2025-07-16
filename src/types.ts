@@ -1,3 +1,5 @@
+type Gender = 'male' | 'female' | 'other';
+
 export interface UserInfo {
     id: string;
     password: string;
@@ -7,4 +9,4 @@ export interface UserInfo {
     gender: Gender;
 }
 
-type Gender = 'male' | 'female' | 'other';
+export type Step = 'First' | 'Second' | 'Third';
