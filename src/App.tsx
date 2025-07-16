@@ -14,18 +14,19 @@ export default function App() {
   
   return (
     <div css={container}>
-      <Header onBack={goToPrevStep} />
+      {step !== 'First' && <Header onBack={goToPrevStep} />}
+
       {step === 'First' && <FirstStep />}
       {step === 'Second' && <SecondStep />}
       {step === 'Third' && <ThirdStep />}
       
-      <BottomCTA onNext={goToNextStep}>다음</BottomCTA>
+      <BottomCTA onNext={goToNextStep}>{step !== 'Third' ? '다음' : '완료'}</BottomCTA>
     </div>
   )
 }
 
 const container = css`
   margin: 0 auto;
-  max-width: 650px;
+  max-width: 600px;
   padding: 20px;
 `
