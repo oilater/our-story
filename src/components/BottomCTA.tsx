@@ -3,16 +3,17 @@ import { css } from '@emotion/react';
 type BottomCTAProps = {
     children: React.ReactNode;
     formId?: string;
-    disabled?: boolean;
-}
+    onComplete?: () => void;
+    type?: "submit" | "button";
+};
 
-export function BottomCTA({children, disabled = false, formId}: BottomCTAProps) {
+export function BottomCTA({children, formId, onComplete, type = "submit"}: BottomCTAProps) {
   return (
     <button
-      type="submit"
+      type={type}
       css={bottomCTA}
       form={formId}
-      disabled={disabled}
+      onClick={onComplete}
     >
       {children}
     </button>

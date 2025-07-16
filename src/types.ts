@@ -1,4 +1,4 @@
-export type Step = 'First' | 'Second' | 'Third';
+export type Step = 'First' | 'Second' | 'Third' | 'Complete';
 export type Gender = 'male' | 'female' | 'other';
 export type Social = 'kakao' | 'naver' | 'google' | 'none';
 

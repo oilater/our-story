@@ -16,6 +16,7 @@ export const goToNextStepAtom = atom(
         set(stepAtom, 'Third');
         break;
       case 'Third':
+        set(stepAtom, 'Complete');
         break;
     }
   }
@@ -33,7 +34,8 @@ export const goToPrevStepAtom = atom(
       case 'Third':
         set(stepAtom, 'Second');
         break;
-      case 'First':
+      case 'Complete':
+        set(stepAtom, 'First');
         break;
     }
   }

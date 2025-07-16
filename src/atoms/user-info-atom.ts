@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import type { UserInfo } from "../types";
 
-export const userInfoAtom = atom<UserInfo>({
+const initialUserInfo: UserInfo = {
   id: '',
   password: '',
   email: '',
@@ -10,4 +10,10 @@ export const userInfoAtom = atom<UserInfo>({
   birth: '',
   gender: 'other',
   social: 'none',
+};
+
+export const userInfoAtom = atom<UserInfo>(initialUserInfo);
+
+export const resetUserInfoAtom = atom(null, (_, set) => {
+  set(userInfoAtom, initialUserInfo);
 });
