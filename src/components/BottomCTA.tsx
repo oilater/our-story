@@ -2,15 +2,17 @@ import { css } from '@emotion/react';
 
 type BottomCTAProps = {
     children: React.ReactNode;
-    onNext: () => void;
+    formId?: string;
+    disabled?: boolean;
 }
 
-export function BottomCTA({children, onNext}: BottomCTAProps) {
+export function BottomCTA({children, disabled = false, formId}: BottomCTAProps) {
   return (
     <button
-      type="button"
+      type="submit"
       css={bottomCTA}
-      onClick={onNext}
+      form={formId}
+      disabled={disabled}
     >
       {children}
     </button>
@@ -40,4 +42,9 @@ const bottomCTA = css`
   border: none;
   cursor: pointer;
   outline: none;
+  transition: background-color 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background-color: #7C3AED;
+  }
 `;

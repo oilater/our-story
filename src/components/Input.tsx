@@ -13,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, validation, ...props }, ref) => {
+    
     return (
       <div css={inputGroup}>
         {label && <label css={labelStyle}>{label}</label>}

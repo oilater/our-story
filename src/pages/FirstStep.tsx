@@ -1,6 +1,8 @@
 // src/pages/FirstStep.tsx
 import { css } from '@emotion/react';
-import { useForm, type DefaultValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useAtom } from 'jotai';
+import { firstStepFormDataAtom } from '../atoms/user-info-atom';
 import { Input } from '../components/Input';
 import { ValidationRules } from '../utils/validate-rules';
 
@@ -11,26 +13,25 @@ interface FirstStepFormData {
   phone: string;
 }
 
-const DEFAULT_VALUES: DefaultValues<FirstStepFormData> = {
-  id: '',
-  password: '',
-  email: '',
-  phone: ''
-};
+interface FirstStepProps {
+  onSubmit: () => void;
+}
 
-
-export function FirstStep() {
+export function FirstStep({ onSubmit }: FirstStepProps) {
+  const [firstStepFormData, setFirstStepFormData] = useAtom(firstStepFormDataAtom);
+  
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<FirstStepFormData>({
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: firstStepFormData,
     mode: 'onChange'
   });
 
-  const onSubmit = (data: FirstStepFormData) => {
-    console.log('폼 데이터:', data);
+  const handleFormSubmit = (data: FirstStepFormData) => {
+    setFirstStepFormData(data);
+    onSubmit();
   };
 
   return (
@@ -38,14 +39,14 @@ export function FirstStep() {
       <p css={subTitle}>Step 1</p>
       <h1 css={title}>회원 정보 입력</h1>
       
-      <form css={form} onSubmit={handleSubmit(onSubmit)}>
+      <form id="first-step-form" css={form} onSubmit={handleSubmit(handleFormSubmit)}>
         <Input
           type="text"
           label="아이디"
           placeholder="아이디를 입력하세요"
           error={errors.id?.message}
-          {...register('id', ValidationRules.Id)}
           autoFocus
+          {...register('id', ValidationRules.Id)}
         />
 
         <Input
